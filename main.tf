@@ -1,6 +1,6 @@
 resource "google_compute_address" "static" {
   name   = var.address_name
-  region = var.address_region
+  region = var.region
 }
 
 resource "google_compute_firewall" "ssh-allow-ingress" {

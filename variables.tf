@@ -1,13 +1,25 @@
+variable "project_id" {
+    description = "project id"
+    type        = string
+    default     = "rising-field-463604-f3"
+}
+
+variable "region" {
+    description = "adress region"
+    type        = string
+    default     = "asia-northeast3"
+}
+
+variable "zone" {
+    description = "name of zone"
+    type        = string
+    default     = "asia-northeast3-a"
+}
+
 variable "address_name" {
     description = "adress name"
     type        = string
     default     = "my-static-ip"
-}
-
-variable "address_region" {
-    description = "adress region"
-    type        = string
-    default     = "asia-northeast3"
 }
 
 variable "firewall_name" {
@@ -38,12 +50,6 @@ variable "machine_type" {
     description = "name of machine type"
     type        = string
     default     = "e2-medium"
-}
-
-variable "zone" {
-    description = "name of zone"
-    type        = string
-    default     = "asia-northeast3-a"
 }
 
 variable "instance_image" {
