@@ -1,10 +1,10 @@
 resource "google_compute_address" "static" {
-  name   = "my-static-ip"
-  region = "asia-northeast3"
+  name   = var.address_name
+  region = var.address_region
 }
 
 resource "google_compute_firewall" "ssh-allow-ingress" {
-    name        = "ssh-allow-test"
+    name        = var.firewall_name
     network     = "default"
 
     direction   = "INGRESS"
@@ -12,23 +12,26 @@ resource "google_compute_firewall" "ssh-allow-ingress" {
 
     allow {
         protocol    = "tcp"
-        ports       = ["22", "8022"]
+        ports       = concat(
+            ["22"],
+            [tostring(var.ssh_port)]
+        )
     }
 
     source_ranges   = ["0.0.0.0/0"]
-    target_tags     = ["ssh-allow-test"]
+    target_tags     = var.target_tags
 }
 
 resource "google_compute_instance" "default"{
-    name             = "test1"
-    machine_type     = "e2-medium"
-    zone             = "asia-northeast3-a"
+    name             = var.instance_name
+    machine_type     = var.machine_type
+    zone             = var.zone
 
     boot_disk {
         initialize_params {
-            image = "ubuntu-os-cloud/ubuntu-2204-lts"
-            size = 30
-            type = "pd-ssd" # ssd는 "pd-ssd", HDD는 "pd-standard"
+            image = var.instance_image
+            size = var.instance_size
+            type = var.instance_type
         }
     }
 
@@ -39,5 +42,5 @@ resource "google_compute_instance" "default"{
         }
     }
 
-    tags = ["http-server", "https-server", "ssh-allow-test"]
+    tags = var.instance_tags
 }
