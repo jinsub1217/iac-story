@@ -2,3 +2,4 @@
 *.lock.*
 terraform.tfstate.*
 *.tfvars
+terraform.tfstate
